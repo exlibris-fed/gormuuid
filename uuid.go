@@ -24,6 +24,7 @@ import (
 )
 
 var (
+	// ErrorNoUUID is the error returned when you attempt to get a UUID when it hasn't been generated.
 	ErrorNoUUID = errors.New("UUID has not been created")
 )
 
@@ -51,9 +52,10 @@ func (u *UUID) BeforeCreate() (err error) {
 //
 // As it returns a uuid.UUID object, you can then call any of that package's methods. (see https://godoc.org/github.com/google/uuid). For example, to use as a string:
 //
-//    var p Person
-//    // instantiate
-//    uuid, err := p.UUID()
+//    c := Person{
+//        Name: "Frank",
+//    }
+//    uuid, _ := p.UUID() // don't ignore errors!
 //    id := uuid.String()
 func (u *UUID) UUID() (uuid.UUID, error) {
 	return uuid.FromBytes(u.ID)
